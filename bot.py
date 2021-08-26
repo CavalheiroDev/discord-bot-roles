@@ -1,11 +1,18 @@
+import os
 import discord
+import dotenv
 from discord.ext import commands
+
+
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 
 bot = discord.Client()
 
 intents = discord.Intents().all()
-bot = commands.Bot(command_prefix=';', intents=intents)
+PREFIX = os.environ['PREFIX']
+
+bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
 
 @bot.event
