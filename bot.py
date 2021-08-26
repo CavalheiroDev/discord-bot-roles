@@ -20,9 +20,7 @@ async def prefix(ctx, prefix):
     bot.command_prefix = prefix
     await ctx.send(f'O prefixo foi mudado para "{prefix}".')
 
-
 @bot.event
-@commands.has_role('Admin')
 async def on_member_join(member: discord.Member):
     await member.send(WELCOME_MESSAGE)
     role = discord.utils.get(member.guild.roles, name=STARTED_ROLE)
