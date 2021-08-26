@@ -1,16 +1,11 @@
-import os
 import discord
-import dotenv
 from discord.ext import commands
-
-
-dotenv.load_dotenv(dotenv.find_dotenv())
+from environment_variables import PREFIX, WELCOME_MESSAGE, STARTED_ROLE, TOKEN_BOT
 
 
 bot = discord.Client()
 
 intents = discord.Intents().all()
-PREFIX = os.environ['PREFIX']
 
 bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
@@ -19,16 +14,23 @@ bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 async def on_ready():
     print('TA NO AR CLÃ!!')
 
+
 @bot.command()
 async def prefix(ctx, prefix):
     bot.command_prefix = prefix
     await ctx.send(f'O prefixo foi mudado para "{prefix}".')
 
 
-
 @bot.event
+@commands.has_role('Admin')
 async def on_member_join(member: discord.Member):
-    role = discord.utils.get(member.guild.roles, name='randons')
+    await member.send(WELCOME_MESSAGE)
+    role = discord.utils.get(member.guild.roles, name=STARTED_ROLE)
+    await member.add_roles(role)
 
-bot.run('ODgwMjUzMjgwODEzNDYxNTM1.YSblwA.A59QrPhL9bfZ4UeoLwP52edDqKI')
+@bot.command()
+async def move_role(ctx, user: discord.Member, role: discord.Role):
+    pass
+
+bot.run(TOKEN_BOT)
 
