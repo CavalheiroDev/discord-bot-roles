@@ -33,5 +33,10 @@ async def add_role(ctx, member: discord.Member, role: discord.Role):
     await member.add_roles(role)
     await ctx.send(f'O membro {member.mention} foi adicionado ao cargo {role}')
 
+@bot.command()
+async def remove_role(ctx, member: discord.Member, role:discord.Role):
+    await member.remove_roles(role)
+    await ctx.send(f'O membro {member.mention} foi removido do cargo {role}')
+
 bot.run(TOKEN_BOT)
 
