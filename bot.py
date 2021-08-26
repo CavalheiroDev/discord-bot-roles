@@ -29,8 +29,9 @@ async def on_member_join(member: discord.Member):
     await member.add_roles(role)
 
 @bot.command()
-async def move_role(ctx, user: discord.Member, role: discord.Role):
-    pass
+async def add_role(ctx, member: discord.Member, role: discord.Role):
+    await member.add_roles(role)
+    await ctx.send(f'O membro {member.mention} foi adicionado ao cargo {role}')
 
 bot.run(TOKEN_BOT)
 
